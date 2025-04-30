@@ -1,0 +1,9 @@
+[
+    { "id": 1, "type": "product", "name": "Filtro de Óleo Premium" },
+    { "id": 2, "type": "product", "name": "Pastilha de Freio" },
+    { "id": 3, "type": "product", "name": "Jogo de Amortecedores" },
+    { "id": 4, "type": "truck",   "name": "Volvo FH 540" },
+    { "id": 5, "type": "truck",   "name": "Scania R420" },
+    { "id": 6, "type": "truck",   "name": "Mercedes-Benz Actros" }
+  ]
+  
