@@ -1,8 +1,8 @@
 import { Link, usePage } from '@inertiajs/react';
 import { Facebook, Instagram, Mail, Phone, MapPin, Truck, Clock, Shield } from 'lucide-react';
 import { Icon } from '@/components/store/icon';
-import { Skeleton } from '@/components/ui/skeleton';
-import { usePageLoading } from "@/hooks/use-page-loading";
+/* import { Skeleton } from '@/components/ui/skeleton';
+import { usePageLoading } from "@/hooks/use-page-loading"; */
 import { type SharedData } from '@/types';
 
 const footerLinks = [
@@ -49,8 +49,8 @@ const vantagens = [
 ];
 
 export function AppFooter() {
-    const loading = usePageLoading();
-    const page = usePage<SharedData>();
+/*     const loading = usePageLoading();
+ */    const page = usePage<SharedData>();
     const currentYear = new Date().getFullYear();
 
     return (
@@ -58,7 +58,7 @@ export function AppFooter() {
             {/* Vantagens - Centralizadas e com espaçamento melhorado */}
             <div className="mx-auto max-w-5xl px-4 py-16">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-                    {loading ?
+                    {/*{loading ?
                         Array(3).fill(0).map((_, index) => (
                             <div key={index} className="flex flex-col items-center text-center">
                                 <Skeleton className="h-16 w-16 rounded-full mb-4" />
@@ -75,7 +75,16 @@ export function AppFooter() {
                                 <p className="text-sm text-muted-foreground">{vantagem.description}</p>
                             </div>
                         ))
-                    }
+                    } */}
+                    {vantagens.map((vantagem, index) => (
+                        <div key={index} className="flex flex-col items-center text-center">
+                            <div className="bg-primary/15 p-4 rounded-full mb-5">
+                                <Icon iconNode={vantagem.icon} className="h-8 w-8 text-primary" />
+                            </div>
+                            <h3 className="text-xl font-medium mb-2">{vantagem.title}</h3>
+                            <p className="text-sm text-muted-foreground">{vantagem.description}</p>
+                        </div>
+                    ))}
                 </div>
             </div>
 
@@ -117,7 +126,7 @@ export function AppFooter() {
                 <div className="mx-auto max-w-5xl px-4 py-16">
                     <div className="grid grid-cols-1 gap-12 md:grid-cols-3 text-center">
                         <div className="space-y-8">
-                            {loading ? (
+                            {/*  {loading ? (
                                 <Skeleton className="h-12 w-48 mx-auto" />
                             ) : (
                                 <>
@@ -166,11 +175,55 @@ export function AppFooter() {
                                         </a>
                                     </div>
                                 </>
-                            )}
+                            )} */}
+                            <Link href="/" prefetch>
+                                <img
+                                    src="/logo-completa.webp"
+                                    alt="Logo Caminhão Peças"
+                                    className="h-auto mx-auto max-w-[270px]"
+                                />
+                            </Link>
+                            <p className="text-sm font-bold text-gray-700 max-w-md mx-auto mt-5">
+                                Solução completa em peças, novas e usadas, para seu caminhão. Variedade, qualidade e preço justo você encontra aqui!
+                            </p>
+                            <div className="space-y-3 text-gray-800">
+                                <div className="flex justify-center items-center">
+                                    <Icon iconNode={MapPin} className="h-4 w-4 mr-2 text-black" />
+                                    <span className="text-sm">Goiânia, Goiás</span>
+                                </div>
+                                <div className="flex justify-center items-center">
+                                    <Icon iconNode={Phone} className="h-4 w-4 mr-2 text-black" />
+                                    <span className="text-sm">(62) 9 9643-7241</span>
+                                </div>
+                                <div className="flex justify-center items-center">
+                                    <Icon iconNode={Mail} className="h-4 w-4 mr-2 text-black" />
+                                    <span className="text-sm">contato@caminhaopecas.com.br</span>
+                                </div>
+                            </div>
+                            <div className="flex justify-center space-x-4 pt-4">
+                                <a
+                                    href="https://www.facebook.com/caminhaopecas/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gray-200 text-black hover:bg-black hover:text-white transition-colors"
+                                >
+                                    <Facebook className="h-5 w-5" />
+                                    <span className="sr-only">Facebook</span>
+                                </a>
+                                <a
+                                    href="https://www.instagram.com/caminhao_pecas/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gray-200 text-black hover:bg-black hover:text-white transition-colors"
+                                >
+                                    <Instagram className="h-5 w-5" />
+                                    <span className="sr-only">Instagram</span>
+                                </a>
+                            </div>
                         </div>
 
                         <div className="space-y-8 text-gray-800">
-                            {loading ? (
+                            {/* {loading ? (
                                 Array(2)
                                     .fill(0)
                                     .map((_, i) => <Skeleton key={i} className="h-6 w-32 mx-auto" />)
@@ -209,11 +262,43 @@ export function AppFooter() {
                                         </nav>
                                     </div>
                                 </>
-                            )}
+                            )} */}
+                            <div className="space-y-4">
+                                <h4 className="font-medium text-lg text-black">Categorias</h4>
+                                <nav className="flex flex-col space-y-3">
+                                    {footerLinks
+                                        .find((g) => g.title === 'Categorias')
+                                        ?.links.map((link) => (
+                                            <Link
+                                                key={link.label}
+                                                href={link.href}
+                                                className="text-sm text-gray-700 hover:text-black transition-colors"
+                                            >
+                                                {link.label}
+                                            </Link>
+                                        ))}
+                                </nav>
+                            </div>
+                            <div className="space-y-4">
+                                <h4 className="font-medium text-lg text-black">Informativo</h4>
+                                <nav className="flex flex-col space-y-3">
+                                    {footerLinks
+                                        .find((g) => g.title === 'Informativo')
+                                        ?.links.map((link) => (
+                                            <Link
+                                                key={link.label}
+                                                href={link.href}
+                                                className="text-sm text-gray-700 hover:text-black transition-colors"
+                                            >
+                                                {link.label}
+                                            </Link>
+                                        ))}
+                                </nav>
+                            </div>
                         </div>
 
                         <div className="space-y-10 text-gray-800">
-                            {loading ? (
+                            {/*     {loading ? (
                                 Array(2)
                                     .fill(0)
                                     .map((_, i) => <Skeleton key={i} className="h-10 w-48 mx-auto" />)
@@ -234,7 +319,21 @@ export function AppFooter() {
                                         </div>
                                     </div>
                                 </>
-                            )}
+                            )} */}
+                            <div className='mb-5'>
+                                <div className="flex flex-col items-center gap-3">
+                                    <img src="/static/img/ssl.png" alt="Certificado 1" className="h-40" />
+                                    <img src="/static/img/safe-browsing.png" alt="Certificado 2" className="h-40" />
+                                </div>
+                            </div>
+                            <div className='mt-5'>
+                                <p className="text-sm text-gray-700">Pagamentos aceitos</p>
+                                <div className="flex justify-center gap-3">
+                                    <img src="/static/img/cartao.png" alt="Cartão" className="h-12" />
+                                    <img src="/static/img/pix.png" alt="Pix" className="h-12" />
+                                    <img src="/static/img/boleto.png" alt="Boleto" className="h-12" />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

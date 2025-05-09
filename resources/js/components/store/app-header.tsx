@@ -7,10 +7,10 @@ import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetT
 import { cn } from '@/lib/utils';
 import { type BreadcrumbItem, type NavItem, type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { Cog, Facebook, Instagram, Menu, Search, UserCog, LogIn, MonitorCog, Truck } from 'lucide-react';
+import { Cog, Facebook, Instagram, Menu, LogIn, MonitorCog, Truck } from 'lucide-react';
 import AppLogo from './app-logo';
-import { Skeleton } from '@/components/ui/skeleton';
-import { usePageLoading } from "@/hooks/use-page-loading";
+/* import { Skeleton } from '@/components/ui/skeleton';
+import { usePageLoading } from "@/hooks/use-page-loading"; */
 import { SearchBox } from "./search-box";
 
 const mainNavItems: NavItem[] = [
@@ -96,8 +96,8 @@ interface AppHeaderProps {
 }
 
 export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
-    const loading = usePageLoading()
-    const page = usePage<SharedData>();
+/*     const loading = usePageLoading()
+ */    const page = usePage<SharedData>();
     const { auth } = page.props;
 
     return (
@@ -117,9 +117,25 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                 <SheetDescription className="sr-only">
                                     Menu lateral em resolução mobile para auxiliar o usuário em navegar pelo site da Caminhão Peças
                                 </SheetDescription>
-                                {loading ? (
+                                {/*        {loading ? (
                                     <Skeleton className="h-8 w-8 rounded-full" />
                                 ) : auth.user ? (
+                                    <Link
+                                        href={route('dashboard')}
+                                        className="text-muted-foreground hover:text-foreground transition-colors"
+                                    >
+                                        <MonitorCog className="h-5 w-5" />
+                                    </Link>
+                                ) : (
+                                    <Link
+                                        href={route('login')}
+                                        className="text-muted-foreground hover:text-foreground transition-colors"
+                                    >
+                                        <LogIn className="h-5 w-5" />
+                                    </Link>
+                                )} */}
+
+                                {auth.user ? (
                                     <Link
                                         href={route('dashboard')}
                                         className="text-muted-foreground hover:text-foreground transition-colors"
@@ -136,7 +152,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                 )}
 
                                 <div className="flex justify-center p-4">
-                                    {loading ? (
+                                    {/* {loading ? (
                                         <Skeleton className="h-12 w-40" />
                                     ) : (
                                         <img
@@ -144,12 +160,17 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                             alt="Logo Caminhão Peças"
                                             className="max-w-[160px] h-auto mx-auto"
                                         />
-                                    )}
+                                    )} */}
+                                    <img
+                                        src="/logo-completa.webp"
+                                        alt="Logo Caminhão Peças"
+                                        className="max-w-[160px] h-auto mx-auto"
+                                    />
                                 </div>
                             </SheetHeader>
                             <div className="flex-1 px-4 py-6">
                                 <nav className="space-y-6">
-                                    {loading ? (
+                                    {/* {loading ? (
                                         Array(7).fill(0).map((_, index) => (
                                             <div key={index} className="flex items-center gap-3">
                                                 <Skeleton className="h-5 w-5 rounded-full" />
@@ -176,14 +197,31 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                                 <span>P/ Desmanche</span>
                                             </Link>
                                         </>
-                                    )}
+                                    )} */}
+                                    {mainNavItems.map((item) => (
+                                        <Link
+                                            key={item.title}
+                                            href={item.href}
+                                            className="flex items-center gap-3 font-medium hover:text-primary transition-colors"
+                                        >
+                                            {item.icon && <Icon iconNode={item.icon} className="h-5 w-5" />}
+                                            <span>{item.title}</span>
+                                        </Link>
+                                    ))}
+                                    <Link
+                                        href="/desmanche"
+                                        className="flex items-center gap-3 font-medium hover:text-primary transition-colors"
+                                    >
+                                        <Icon iconNode={Truck} className="h-5 w-5" />
+                                        <span>P/ Desmanche</span>
+                                    </Link>
                                 </nav>
                             </div>
 
                             <SheetFooter className="px-4 pb-6">
                                 <div className="flex flex-col gap-4">
                                     <div className="flex items-center justify-center gap-4">
-                                        {loading ? (
+                                        {/* {loading ? (
                                             <>
                                                 <Skeleton className="h-8 w-8 rounded-full" />
                                                 <Skeleton className="h-8 w-8 rounded-full" />
@@ -201,7 +239,19 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                                     <span className="sr-only">{item.title}</span>
                                                 </a>
                                             ))
-                                        )}
+                                        )} */}
+                                        {socialNavItems.map((item) => (
+                                            <a
+                                                key={item.title}
+                                                href={item.href}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-muted-foreground hover:text-foreground transition-colors"
+                                            >
+                                                {item.icon && <Icon iconNode={item.icon} className="h-5 w-5" />}
+                                                <span className="sr-only">{item.title}</span>
+                                            </a>
+                                        ))}
                                     </div>
 
                                     <p className="text-xs text-muted-foreground text-center">
@@ -213,11 +263,12 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                     </Sheet>
 
                     <Link href="/" prefetch className="flex items-center justify-center flex-grow">
-                        {loading ? (
+                        {/* {loading ? (
                             <Skeleton className="h-8 w-36" />
                         ) : (
                             <AppLogo />
-                        )}
+                        )} */}
+                        <AppLogo />
                     </Link>
 
                     <div className="ml-auto">
@@ -229,39 +280,45 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
             {/* Desktop */}
             <div className="hidden lg:block">
                 <div className="mx-auto px-4 py-2 md:max-w-7xl text-center font-medium flex items-center justify-center">
-                    {loading ? (
+                    {/* {loading ? (
                         <Skeleton className="h-5 w-3/4 max-w-xl mx-auto" />
                     ) : (
                         <>
                             Solução completa em peças para seu caminhão - Enviamos para todo o Brasil!
                             <img src="/static/img/bandeira-brasil.png" title="Ícone do Brasil" alt="Ícone do Brasil" className="ml-2 inline-block" />
                         </>
-                    )}
+                    )} */}
+                    Solução completa em peças para seu caminhão - Enviamos para todo o Brasil!
+                    <img src="/static/img/bandeira-brasil.png" title="Ícone do Brasil" alt="Ícone do Brasil" className="ml-2 inline-block" />
                 </div>
 
                 <div className="border-sidebar-border/80 border-b">
                     <div className="mx-auto flex h-20 items-center justify-between px-4 md:max-w-7xl">
                         <div className="flex items-center">
-                            {loading ? (
+                            {/*        {loading ? (
                                 <Skeleton className="h-10 w-44" />
                             ) : (
                                 <Link href="/" prefetch className="flex items-center space-x-1">
                                     <AppLogo />
                                 </Link>
-                            )}
+                            )} */}
+                            <Link href="/" prefetch className="flex items-center space-x-1">
+                                <AppLogo />
+                            </Link>
                         </div>
 
                         <div className="flex-grow mx-12 max-w-xl">
-                            {loading ? (
+                            {/*    {loading ? (
                                 <Skeleton className="h-11 w-full rounded-lg" />
                             ) : (
                                 <SearchBox />
-                            )}
+                            )} */}
+                            <SearchBox />
                         </div>
 
                         <div className="flex items-center space-x-4">
                             <div className="flex space-x-2">
-                                {loading ? (
+                                {/* {loading ? (
                                     <>
                                         <Skeleton className="h-10 w-10 rounded-full" />
                                         <Skeleton className="h-10 w-10 rounded-full" />
@@ -279,12 +336,25 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                             {item.icon && <Icon iconNode={item.icon} className="size-5" />}
                                         </a>
                                     ))
+                                )} */}
+                                {(socialNavItems.map((item) => (
+                                    <a
+                                        key={item.title}
+                                        href={item.href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-accent text-accent-foreground hover:bg-primary hover:text-primary-foreground transition-colors"
+                                    >
+                                        <span className="sr-only">{item.title}</span>
+                                        {item.icon && <Icon iconNode={item.icon} className="size-5" />}
+                                    </a>
+                                ))
                                 )}
                             </div>
 
                             <div className="h-8 w-px bg-neutral-200 dark:bg-neutral-700"></div>
 
-                            {loading ? (
+                            {/* {loading ? (
                                 <Skeleton className="h-10 w-10 rounded-lg" />
                             ) : (
                                 auth.user ? (
@@ -292,7 +362,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                         href={route('dashboard')}
                                         className="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-accent transition-colors"
                                     >
-                                        <UserCog className="size-5" />
+                                        <MonitorCog className="size-5" />
                                         <span className="sr-only">Área administrativa</span>
                                     </Link>
                                 ) : (
@@ -304,6 +374,23 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                         <span className="sr-only">Área restrita</span>
                                     </Link>
                                 )
+                            )} */}
+                            {auth.user ? (
+                                <Link
+                                    href={route('dashboard')}
+                                    className="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-accent transition-colors"
+                                >
+                                    <MonitorCog className="size-5" />
+                                    <span className="sr-only">Área administrativa</span>
+                                </Link>
+                            ) : (
+                                <Link
+                                    href={route('login')}
+                                    className="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-accent transition-colors"
+                                >
+                                    <LogIn className="size-5" />
+                                    <span className="sr-only">Área restrita</span>
+                                </Link>
                             )}
                         </div>
                     </div>
@@ -313,7 +400,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                 <div className="border-sidebar-border/80 border-b bg-accent/50">
                     <div className="mx-auto px-4 md:max-w-7xl">
                         <nav className="flex items-center justify-between h-14">
-                            {loading ? (
+                            {/*  {loading ? (
                                 Array(7).fill(0).map((_, index) => (
                                     <Skeleton key={index} className="h-6 w-24" />
                                 ))
@@ -343,7 +430,30 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                         <span>P/ Desmanche</span>
                                     </Link>
                                 </>
-                            )}
+                            )} */}
+                            {mainNavItems.map((item) => (
+                                <Link
+                                    key={item.title}
+                                    href={item.href}
+                                    className={cn(
+                                        "flex items-center gap-2 font-medium hover:text-primary transition-colors h-full px-4",
+                                        page.url === item.href && "text-primary border-b-2 border-primary"
+                                    )}
+                                >
+                                    {item.icon && <Icon iconNode={item.icon} className="h-5 w-5" />}
+                                    <span>{item.title}</span>
+                                </Link>
+                            ))}
+                            <Link
+                                href="/desmanche"
+                                className={cn(
+                                    "flex items-center gap-2 font-medium hover:text-primary transition-colors h-full px-4",
+                                    page.url === '/desmanche' && "text-primary border-b-2 border-primary"
+                                )}
+                            >
+                                <Icon iconNode={Truck} className="h-5 w-5" />
+                                <span>P/ Desmanche</span>
+                            </Link>
                         </nav>
                     </div>
                 </div>
@@ -353,7 +463,7 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
             {breadcrumbs.length > 1 && (
                 <div className="border-sidebar-border/70 flex w-full border-b">
                     <div className="mx-auto flex h-12 w-full items-center justify-start px-4 text-neutral-500 md:max-w-7xl">
-                        {loading ? (
+                        {/* {loading ? (
                             <div className="flex gap-2 items-center">
                                 <Skeleton className="h-4 w-16" />
                                 <Skeleton className="h-4 w-4 rounded-full" />
@@ -363,7 +473,8 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                             </div>
                         ) : (
                             <Breadcrumbs breadcrumbs={breadcrumbs} />
-                        )}
+                        )} */}
+                        <Breadcrumbs breadcrumbs={breadcrumbs} />
                     </div>
                 </div>
             )}
